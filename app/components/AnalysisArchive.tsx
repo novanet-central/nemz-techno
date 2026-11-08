@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { AnalysisCard } from "@/app/components/AnalysisCard";
-import type { Analysis } from "@/app/lib/analyses";
+import type { BlogPostPreview } from "@/app/lib/blog-shared";
 
 const MOBILE_BREAKPOINT = 820;
 
 type AnalysisArchiveProps = {
-  analyses: Analysis[];
+  analyses: BlogPostPreview[];
 };
 
 export function AnalysisArchive({ analyses }: AnalysisArchiveProps) {
@@ -31,15 +31,19 @@ export function AnalysisArchive({ analyses }: AnalysisArchiveProps) {
 
   return (
     <>
-      <div className="analysis-grid">
-        {visibleAnalyses.map((analysis, index) => (
-          <AnalysisCard
-            analysis={analysis}
-            index={firstItemIndex + index}
-            key={`${analysis.date}-${analysis.title}`}
-          />
-        ))}
-      </div>
+      {visibleAnalyses.length > 0 ? (
+        <div className="analysis-grid">
+          {visibleAnalyses.map((analysis, index) => (
+            <AnalysisCard
+              analysis={analysis}
+              index={firstItemIndex + index}
+              key={analysis.id}
+            />
+          ))}
+        </div>
+      ) : (
+        <p className="archive-loading">JELENLEG NINCS PUBLIKÁLT ELEMZÉS.</p>
+      )}
 
       {totalPages > 1 && (
         <nav className="analysis-pagination" aria-label="Elemzések lapozása">

@@ -1,10 +1,19 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 import { AnalysisCard } from "@/app/components/AnalysisCard";
+import { JsonLd } from "@/app/components/JsonLd";
 import { NewsletterForm } from "@/app/components/NewsletterForm";
 import { SiteFooter } from "@/app/components/SiteFooter";
 import { SiteHeader } from "@/app/components/SiteHeader";
-import { featuredAnalyses } from "@/app/lib/analyses";
+import { getPublishedBlogPostPreviews } from "@/app/lib/blog";
+import {
+  absoluteUrl,
+  organizationId,
+  organizationName,
+  siteDescription,
+} from "@/app/lib/site";
 
 const topics = [
   { label: "GEOPOLITIKA", filter: "GEOPOLITIKA" },
@@ -15,12 +24,39 @@ const topics = [
   { label: "VÉDELEM ÉS STRATÉGIA", filter: "VÉDELMI STRATÉGIA" },
 ];
 
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "hu_HU",
+    url: "/",
+    siteName: organizationName,
+    title: organizationName,
+    description: siteDescription,
+  },
+};
+
 export default function Home() {
+  const homeSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${absoluteUrl("/")}#webpage`,
+    name: organizationName,
+    description: siteDescription,
+    url: absoluteUrl("/"),
+    inLanguage: "hu-HU",
+    isPartOf: { "@id": `${absoluteUrl("/")}#website` },
+    about: { "@id": organizationId },
+  };
+
   return (
     <>
       <SiteHeader activePage="home" />
 
       <main id="top">
+        <JsonLd data={homeSchema} />
         <section className="hero">
           <div className="hero-copy">
             <p className="eyebrow">GEOPOLITIKAI ÉS STRATÉGIAI ELEMZŐ MŰHELY</p>
@@ -62,11 +98,9 @@ export default function Home() {
             </div>
             <Link className="text-link" href="/elemzesek">ÖSSZES ELEMZÉS <span>→</span></Link>
           </div>
-          <div className="analysis-grid">
-            {featuredAnalyses.map((article, index) => (
-              <AnalysisCard analysis={article} index={index} key={article.title} />
-            ))}
-          </div>
+          <Suspense fallback={<p className="archive-loading">ELEMZÉSEK BETÖLTÉSE…</p>}>
+            <FeaturedAnalysisGrid />
+          </Suspense>
         </section>
 
         <section className="practice section" id="modszer">
@@ -186,5 +220,21 @@ export default function Home() {
 
       <SiteFooter />
     </>
+  );
+}
+
+async function FeaturedAnalysisGrid() {
+  const analyses = await getPublishedBlogPostPreviews(3);
+
+  if (analyses.length === 0) {
+    return <p className="archive-loading">JELENLEG NINCS PUBLIKÁLT ELEMZÉS.</p>;
+  }
+
+  return (
+    <div className="analysis-grid">
+      {analyses.map((analysis, index) => (
+        <AnalysisCard analysis={analysis} index={index} key={analysis.id} />
+      ))}
+    </div>
   );
 }

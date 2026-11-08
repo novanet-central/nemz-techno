@@ -1,9 +1,24 @@
 import type { NextConfig } from "next";
+import { siteUrl } from "./app/lib/site";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "nemzetitechnokrata.hu",
+          },
+        ],
+        destination: `${siteUrl}/:path*`,
+        permanent: true,
+      },
+    ];
+  },
   turbopack: {
     rules: {
       "*.css": {

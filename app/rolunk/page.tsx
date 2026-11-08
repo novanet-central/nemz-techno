@@ -1,13 +1,53 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLd } from "@/app/components/JsonLd";
 import { SiteFooter } from "@/app/components/SiteFooter";
 import { SiteHeader } from "@/app/components/SiteHeader";
+import { absoluteUrl, organizationId, organizationName } from "@/app/lib/site";
+
+export const metadata: Metadata = {
+  title: "A műhelyről",
+  description:
+    "A Nemzeti Technokrata Műhely küldetése, elemzési szemlélete és geopolitikai-stratégiai fókuszterületei.",
+  alternates: {
+    canonical: "/rolunk",
+  },
+  openGraph: {
+    type: "website",
+    locale: "hu_HU",
+    url: "/rolunk",
+    siteName: organizationName,
+    title: "A műhelyről",
+    description:
+      "A Nemzeti Technokrata Műhely küldetése, elemzési szemlélete és geopolitikai-stratégiai fókuszterületei.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "A műhelyről",
+    description:
+      "A Nemzeti Technokrata Műhely küldetése, elemzési szemlélete és geopolitikai-stratégiai fókuszterületei.",
+    images: ["/opengraph-image"],
+  },
+};
 
 export default function AboutPage() {
+  const aboutSchema = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "@id": `${absoluteUrl("/rolunk")}#about`,
+    name: "A Nemzeti Technokrata Műhelyről",
+    description: metadata.description,
+    url: absoluteUrl("/rolunk"),
+    inLanguage: "hu-HU",
+    mainEntity: { "@id": organizationId },
+  };
+
   return (
     <>
       <SiteHeader activePage="about" />
 
       <main>
+        <JsonLd data={aboutSchema} />
         <section className="about-intro">
           <p className="eyebrow">A MŰHELYRŐL</p>
           <h1>Stratégiai gondolkodás.<br /><em>Magyar nézőpontból.</em></h1>

@@ -1,0 +1,25 @@
+# Nemzeti Technokrata Műhely
+
+> Független magyar geopolitikai és stratégiai elemző műhely. Nemzetközi folyamatokat, következményeket és döntési helyzeteket értelmezünk magyar nézőpontból.
+
+Az oldal nyilvánosan hozzáférhető tartalmát keresési, idézési és összefoglalási célból is fel lehet térképezni. Az állításokat mindig az eredeti oldalra mutató hivatkozással és a publikáció címével együtt érdemes megjeleníteni.
+
+## Elsődleges oldalak
+
+- [Kezdőlap](https://www.nemzetitechnokrata.hu/): A műhely küldetése és a friss elemzések.
+- [Elemzések](https://www.nemzetitechnokrata.hu/elemzesek): Publikált geopolitikai és stratégiai elemzések archívuma.
+- [A műhelyről](https://www.nemzetitechnokrata.hu/rolunk): Küldetés és tematikus fókusz.
+- [Sitemap](https://www.nemzetitechnokrata.hu/sitemap.xml): Az indexelhető oldalak teljes gépi listája.
+
+## Tartalmi fókusz
+
+- Geopolitika
+- Európai Unió
+- Energiabiztonság
+- Gazdasági szuverenitás
+- Közép-Európa
+- Védelmi stratégia
+
+## Kapcsolat
+
+- E-mail: szerkesztoseg@nemzetitechnokrata.hu

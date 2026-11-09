@@ -29,13 +29,13 @@ export function XPostEmbed({ postUrl }: XPostEmbedProps) {
 
   return (
     <div className="article-embed-x" ref={embedRef}>
-      <blockquote className="twitter-tweet">
+      <blockquote className="twitter-tweet" data-dnt="true">
         <a href={postUrl}>{postUrl}</a>
       </blockquote>
       <Script
-        src="https://platform.twitter.com/widgets.js"
-        strategy="lazyOnload"
-        onLoad={renderEmbed}
+        src="https://platform.x.com/widgets.js"
+        strategy="afterInteractive"
+        onReady={renderEmbed}
       />
     </div>
   );

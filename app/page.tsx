@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { AnalysisCard } from "@/app/components/AnalysisCard";
+import { ContactForm } from "@/app/components/ContactForm";
 import { JsonLd } from "@/app/components/JsonLd";
 import { NewsletterForm } from "@/app/components/NewsletterForm";
 import { SiteFooter } from "@/app/components/SiteFooter";
@@ -183,37 +184,9 @@ export default function Home() {
           <div className="section-heading">
             <h2>Kapcsolatfelvétel</h2>
           </div>
-          <form className="contact-form">
-            <div className="contact-fields">
-              <label htmlFor="contact-email">
-                E-MAIL CÍM
-                <input
-                  id="contact-email"
-                  name="email"
-                  type="email"
-                  placeholder="nev@pelda.hu"
-                  autoComplete="email"
-                />
-              </label>
-              <label htmlFor="contact-phone">
-                TELEFONSZÁM
-                <input
-                  id="contact-phone"
-                  name="phone"
-                  type="tel"
-                  placeholder="+36 30 123 4567"
-                  autoComplete="tel"
-                />
-              </label>
-            </div>
-            <div className="contact-form-footer">
-              <p>
-                Az üzenetküldés beállítás alatt áll. A kapcsolatfelvételi
-                végpont Google Cloudon keresztül kerül bekötésre.
-              </p>
-              <button type="button" disabled>KÜLDÉS HAMAROSAN <span>→</span></button>
-            </div>
-          </form>
+          <ContactForm
+            turnstileSiteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+          />
         </section>
 
       </main>

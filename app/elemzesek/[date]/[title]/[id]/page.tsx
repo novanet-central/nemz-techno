@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import { Suspense } from "react";
 import { ArticleMarkdown } from "@/app/components/ArticleMarkdown";
+import { ArticleShareLinks } from "@/app/components/ArticleShareLinks";
 import { JsonLd } from "@/app/components/JsonLd";
 import { SiteFooter } from "@/app/components/SiteFooter";
 import { SiteHeader } from "@/app/components/SiteHeader";
@@ -137,6 +138,7 @@ async function AnalysisContent({ params }: AnalysisPageProps) {
       <div className={`article-layout${relatedPosts.length === 0 ? " article-layout-wide" : ""}`}>
         <div className="article-body">
           <ArticleMarkdown content={post.text} />
+          <ArticleShareLinks articleUrl={articleUrl} title={post.title} />
         </div>
 
         {relatedPosts.length > 0 && (

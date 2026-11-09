@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { GoogleTagManager } from "@next/third-parties/google";
 import { JsonLd } from "@/app/components/JsonLd";
 import {
   absoluteUrl,
@@ -67,6 +68,7 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
   const siteSchema = [
     {
       "@context": "https://schema.org",
@@ -95,6 +97,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="hu"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      {gtmId && <GoogleTagManager gtmId={gtmId} />}
       <body className="min-h-full flex flex-col">
         <JsonLd data={siteSchema} />
         {children}
